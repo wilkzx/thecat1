@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;overflow:hidden;background:#1d1f33;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#2b2d42;user-select:none;-webkit-user-select:none;touch-action:none}
-canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block}
 button{font:inherit;color:inherit;cursor:pointer;border:0}
 .box{background:rgba(255,255,255,.9);border-radius:14px;padding:6px 10px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .small{font-size:12px;opacity:.75}
@@ -153,9 +153,9 @@ const SKINS=[
  {id:'szary',name:'Szary',c:'#9aa3ad',a:'#6c7682',lvl:1},
  {id:'czarny',name:'Czarny',c:'#34343c',a:'#1a1a20',lvl:1},
  {id:'bialy',name:'Biały',c:'#f4f1ec',a:'#cfc8bb',lvl:1},
- {id:'zloty',name:'Złoty',c:'#e9c46a',a:'#c0922a',lvl:10},
- {id:'blekit',name:'Błękitny',c:'#8ec5e8',a:'#5594bd',lvl:20},
- {id:'kosmos',name:'Kosmiczny',c:'#8a6bd1',a:'#573aa6',lvl:30}];
+ {id:'zloty',name:'Złoty',c:'#e9c46a',a:'#c0922a',lvl:1},
+ {id:'blekit',name:'Błękitny',c:'#8ec5e8',a:'#5594bd',lvl:1},
+ {id:'kosmos',name:'Kosmiczny',c:'#8a6bd1',a:'#573aa6',lvl:1}];
 const ITEMS=[
  {id:'karma3',cat:'Jedzenie',name:'Karma premium x3',icon:'🍗',price:30,lvl:1,give:{karma:3},desc:'+45 sytości każda'},
  {id:'treat5',cat:'Jedzenie',name:'Przysmaki x5',icon:'🍬',price:25,lvl:1,give:{treat:5},desc:'Do chowania i karmienia'},
@@ -747,9 +747,9 @@ function renderShop(){const disc=hasEv('market')?.8:1;let h='<div class="row"><b
  if(shopTab==='Jedzenie')h+='<div class="small" style="margin-top:8px">W magazynie: 🍗 '+(S.inv.karma||0)+' · 🍬 '+(S.inv.treat||0)+'</div>';showPanel('🛍️ Sklep zoologiczny',h)}
 function openShop(){renderShop()}
 function openChoose(isNew){chooseNew=isNew;showPanel(isNew?'😺 Nowa gra – Twój kot':'😺 Wybierz kota',`
- <div class="cho"><div class="pvw"><canvas id="pv" width="220" height="130" style="width:100%;display:block;background:#e8f7d4;border-radius:14px"></canvas></div><div class="ctl">
+ <div class="cho"><div class="pvw"><canvas id="pv" width="220" height="130" style="width:100%;height:auto;display:block;background:#e8f7d4;border-radius:14px"></canvas></div><div class="ctl">
  <label>Imię kota<input type="text" id="nmi" maxlength="14" value="${esc(S.name)}" oninput="G.name(this.value)"></label>
- <h4>Rasa</h4><div class="chips" id="cb"></div><h4>Kolor</h4><div class="chips" id="cs"></div><div class="sub">Zablokowane kolory odblokujesz poziomami 10, 20 i 30.</div>
+ <h4>Rasa</h4><div class="chips" id="cb"></div><h4>Kolor</h4><div class="chips" id="cs"></div><div class="sub">Wszystkie kolory i rasy są za darmo od początku.</div>
  <label style="display:block;margin-top:10px"><input type="checkbox" ${S.cat.stripes?'checked':''} onchange="G.stripes(this.checked)"> Pręgi</label>
  <button class="btn big" onclick="G.chosen()">${isNew?'▶ Zaczynamy!':'✔ Gotowe'}</button></div></div>`,{back:!isNew});renderChoose();startPreview()}
 function renderChoose(){$('#cb').innerHTML=BREEDS.map(b=>'<button class="chp '+(S.cat.breed===b.id?'on':'')+'" onclick="G.breed(\''+b.id+'\')">'+b.name+'</button>').join('');
